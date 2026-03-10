@@ -3,17 +3,39 @@
     <canvas ref="canvasRef" class="webgl"></canvas>
 
     <div class="wrap">
+      <!-- <section class="section text_white">
+        <h1>Structure <br>
+          <span>탄탄한 [체계]로 내실을 다지고</span>
+        </h1>
+      </section>
+      <section class="section text_gray">
+        <h1>Interface<br>
+          <span>유연한 [소통]으로 사용자와 연결되며</span>
+        </h1>
+      </section>
+      <section class="section">
+        <h1>Development<br>
+          <span>[구현]을 통해 결과물의 가치를 입증합니다</span>
+        </h1>
+      </section>
+      <section class="section text_small">   
+        <h1>웹 퍼블리셔 차혜리 입니다.</h1>
+      </section> -->
       <section class="section text_white">
-      <h1>Scroll Down</h1>
-    </section>
-    <section class="section text_gray">
-      <h1>Keep Scrolling</h1>
-    </section>
-    <section class="section">
-      <h1>Three.js + GSAP</h1>
-    </section>
-    <section class="space">
-    </section>
+        <h1>web publisher
+        </h1>
+      </section>
+      <section class="section text_gray">
+        <h1>Front-end developer
+        </h1>
+      </section>
+      <section class="section">
+        <h1>portfolio <br> <span> 차혜리 </span>
+        </h1>
+      </section>
+      
+      <section class="space">
+      </section>
     </div>
     
   </div>
@@ -98,7 +120,7 @@ scene.add(blueLight);
   scrollTrigger: {
     trigger: "body",
     start: "top top",
-    end: "bottom bottom",
+    end: () => `+=${document.querySelector('.pin-container').offsetHeight}`, // 종료시점
     scrub: true,
   }
   });
@@ -111,7 +133,7 @@ scene.add(blueLight);
     scrollTrigger: {
       trigger: "body",      // 스크롤 감지 범위
       start: "top top",     // 시작 시점
-      end: "bottom bottom", // 종료 시점
+      end: () => `+=${document.querySelector('.pin-container').offsetHeight}`, //  종료 시점
       scrub: 2,            // 스크롤 속도에 반응 (숫자가 클수록 부드러움)
     }
   });
@@ -164,14 +186,27 @@ scene.add(blueLight);
   justify-content: center;
   align-items: center;
   color: #111;
-  font-size: 3rem;
   font-family: sans-serif;
   pointer-events: none; /* 클릭 이벤트가 캔버스에 전달되도록 설정 */
+}
+.section h1{
+  text-transform: uppercase;
+  font-size: 6vw;
+  text-align: center;
+}
+.section h1 span{
+  font-weight: 400;
+  font-size: 0.4em;
 }
 .text_white{
   color: #fff;
 }
 .text_gray{
   color: #5e5e5e;
+}
+.text_small h1{
+  font-size: 2vw;
+  text-align: center;
+  line-height: 1.5;
 }
 </style>

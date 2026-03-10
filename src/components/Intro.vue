@@ -15,29 +15,27 @@
         <div class="intro-block">
           <span class="intro-label">경력</span>
           <ul class="intro-list">
-            <li>TmaxCloud - CL2-2-2팀 UX 매니저 <span class="date">(2024.06 - 2024.10)</span></li>
-            <li>휴머스온 - 프런트엔드개발파트 퍼블리셔 <span class="date">(2022.11 - 2023.12)</span></li>
-            <li>티몬 - 마크업 개발팀 마크업 개발자 <span class="date">(2021.02 - 2022.06)</span></li>
-            <li>엑스이허브 - UI개발팀 퍼블리셔 <span class="date">(2020.03 - 2021.01)</span></li>
-            <li>개인사업자 - 디자이너 / 퍼블리셔 <span class="date">(2018.02 - 2019.12)</span></li>
+            <li>PMG KOREA - CCP팀 Front-end developer, publisher <span class="date">(2024.03 - )</span></li>
+            <li>(주) 리테일앤인사이트 - TS개발팀 publisher <span class="date">(2022.06 - 2023.08)</span></li>
+            <li>서울평가정보 - 운영팀 인사/회계 <span class="date">(2020.07 - 2021.07)</span></li>
           </ul>
         </div>
 
         <div class="intro-block">
           <span class="intro-label">자격증</span>
           <ul class="intro-list">
-            <li>GTQ 1급 <span class="date">(한국생산성본부, 2016.06.17)</span></li>
-            <li>컴퓨터그래픽스기능사 <span class="date">(한국산업인력공단, 2014.06.27)</span></li>
-            <li>웹디자인기능사 <span class="date">(한국산업인력공단, 2014.06.27)</span></li>
+            <li>웹디자인기능사 <span class="date">(한국산업인력공단, 2022.04)</span></li>
+            <li>GTQ 포토샵 1급 <span class="date">(한국생산성본부, 2021.11)</span></li>
+            <li>컴퓨터활용능력2급 <span class="date">(대한상공회의소, 2017.10)</span></li>
+            
           </ul>
         </div>
 
         <div class="intro-block">
           <span class="intro-label">교육</span>
           <ul class="intro-list">
-            <li>패스트캠퍼스 <span class="date">(Web 개발 취업 스쿨 HTML/CSS/JS 1학기 수료)</span></li>
-            <li>하이미디어 아카데미 <span class="date">(반응형 디자인 웹퍼블리셔반 수료)</span></li>
-            <li>가천대학교 <span class="date">(시각디자인과 졸업)</span></li>
+            <li>UI/UX 반응형 웹디자인&웹퍼블리셔 수료<span class="date">그린아카데미</span></li>
+            <li>공주대학교 <span class="date">(식물자원학과 졸업)</span></li>
           </ul>
         </div>
 

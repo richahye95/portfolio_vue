@@ -130,25 +130,27 @@
             </div>
             <!-- 우측 -->
             <div class="modal-right">
-              
-              <h2 class="modal-title">{{ projects[activeIndex].title }}</h2>
-              <div class="modal-tags">
-                <span v-for="tag in projects[activeIndex].tags" :key="tag" class="modal-tag">{{ tag }}</span>
+              <div class="modal-right-top">
+                <h2 class="modal-title">{{ projects[activeIndex].title }}</h2>
+                <div class="modal-tags">
+                  <span v-for="tag in projects[activeIndex].tags" :key="tag" class="modal-tag">{{ tag }}</span>
+                </div>
+                <div class="modal-desc">
+                  <p v-for="(line, i) in projects[activeIndex].description" :key="i" >
+                    {{ line }}
+                  </p>
+                </div>
               </div>
-              <p class="modal-sub">{{ projects[activeIndex].subtitle }}</p>
-              <p class="modal-desc">{{ projects[activeIndex].description }}</p>
+              
               <div class="modal-meta">
                 <div class="meta-item" v-for="meta in projects[activeIndex].meta" :key="meta.label">
                   <span class="meta-label">{{ meta.label }}</span>
                   <span class="meta-value">{{ meta.value }}</span>
                 </div>
               </div>
-              <div class="modal-colors">
-                <div v-for="col in projects[activeIndex].colors" :key="col" class="modal-chip" :style="{ background: col }">
-                  <span class="modal-chip-label">{{ col }}</span>
-                </div>
-              </div>
-              <a :href="projects[activeIndex].link" class="modal-btn" target="_blank">View Project →</a>
+              
+              <a v-if="projects[activeIndex].link"
+  :href="projects[activeIndex].link" class="modal-btn" target="_blank">View Project →</a>
             </div>
           </div>
         </div>
@@ -172,7 +174,7 @@ const activeIndex = ref(null);
 const projects = [
   {
     size: 'tall',
-    title: 'Fnits Studio',
+    title: '사내 그룹웨어 ',
     subtitle: 'Branding · Web',
     image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=700&q=80',
     description: '스트리트웨어 브랜드 Fnits의 공식 온라인 스토어 및 브랜드 아이덴티티 디자인. 빈티지 감성과 현대적 UI를 결합하여 독창적인 쇼핑 경험을 제공합니다.',
@@ -186,58 +188,10 @@ const projects = [
     ],
     colors: ['#FFFFFF', '#F4F4F4', '#0ADADA', '#797979', '#505050', '#000000'],
   },
-  {
-    size: 'tall',
-    title: 'Palace Archive',
-    subtitle: 'UI/UX · Motion',
-    image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=700&q=80',
-    description: '팔라스 스케이트보딩의 아카이브 플랫폼. 드롭 컬렉션과 히스토리를 시각적으로 탐색할 수 있는 인터랙티브 경험을 제공합니다.',
-    tags: ['UI/UX', 'Motion', 'Archive'],
-    link: '#',
-    meta: [
-      { label: 'Client', value: 'Palace Skate' },
-      { label: 'Year',   value: '2024' },
-      { label: 'Role',   value: 'UI Design' },
-      { label: 'Stack',  value: 'React, Three.js' },
-    ],
-    colors: ['#FFFFFF', '#F4F4F4', '#ADADAD', '#797979', '#505050', '#000000'],
-  },
-  {
-    size: 'small',
-    title: 'eDM Newsletter',
-    subtitle: 'HTML table',
-    image: '/img/works/edm_thum.png',        // 카드 썸네일
-    modalImage: '/img/works/edm_imgwrap.png', // 모달 이미지
-    description: 'Fnits 브랜드 로고타입 및 심볼 디자인. 레트로 스케이트 문화에서 영감을 받은 독창적인 레터링 시스템.',
-    tags: ['HTML', 'table'],
-    link: '#',
-    meta: [
-      { label: 'Client', value: 'Fnits Studio' },
-      { label: 'Year',   value: '2024' },
-      { label: 'Role',   value: 'Brand Design' },
-      { label: 'Stack',  value: 'Illustrator' },
-    ],
-    colors: ['#FFFFFF', '#000000', '#F4F4F4', '#505050'],
-  },
-  {
-    size: 'small',
-    title: 'Icon Pack',
-    subtitle: 'UI Icons',
-    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80',
-    description: '커머스 플랫폼을 위한 커스텀 아이콘 시스템. 일관된 그리드와 획 굵기로 완성된 200개 이상의 아이콘 세트.',
-    tags: ['Icon', 'Design System'],
-    link: '#',
-    meta: [
-      { label: 'Client', value: 'In-house' },
-      { label: 'Year',   value: '2024' },
-      { label: 'Role',   value: 'Icon Design' },
-      { label: 'Count',  value: '200+ Icons' },
-    ],
-    colors: ['#FFFFFF', '#797979', '#000000'],
-  },
+  
   {
     size: 'wide',
-    title: 'StyleSeller',
+    title: 'DB ERD, 스토리 보드 작성',
     subtitle: 'Product · Mobile App',
     image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=900&q=80',
     description: '스트리트웨어 브랜드 Fnits의 공식 온라인 스토어 및 브랜드 아이덴티티 디자인. 빈티지 감성과 현대적 UI를 결합하여 독창적인 쇼핑 경험을 제공합니다. ',
@@ -252,8 +206,63 @@ const projects = [
     colors: ['#FFFFFF', '#F4F4F4', '#ADADAD', '#797979', '#505050', '#000000'],
   },
   {
+    size: 'small',
+    title: 'eDM Newsletter',
+    subtitle: 'HTML Email · Table Layout',
+    image: '/img/works/edm_thum.png',        // 카드 썸네일
+    modalImage: '/img/works/edm_imgwrap.png', // 모달 이미지
+    description: [
+  '클라이언트를 위한 eDM 뉴스레터 퍼블리싱.',
+  '이메일 클라이언트 간 렌더링 편차를 극복하기 위해 HTML table 기반 레이아웃과 inline CSS를 적용하였습니다.',
+  'Gmail, Outlook 등 주요 메일 클라이언트 호환성을 최우선으로 고려하여 구조를 설계했으며, CSS 지원 범위가 제한된 환경에서도 의도한 디자인이 정확히 구현되도록 마크업을 최적화하였습니다.',
+],
+    tags: ['HTML Email', 'Table Layout'],
+    meta: [
+      { label: 'Role',   value: 'Publishing' },
+      { label: 'Stack',  value: 'HTML, inline CSS' },
+      { label: 'Contribution',   value: '90%' },
+      { label: 'Client', value: 'STANLEY, adobe, AMD, Naver Works, Dell, Johnnie Walker 외 다수' },
+      
+      
+    ],
+    
+  },
+  {
+    size: 'small',
+    title: 'form 페이지 제작',
+    subtitle: 'UI Icons',
+    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80',
+    description: '커머스 플랫폼을 위한 커스텀 아이콘 시스템. 일관된 그리드와 획 굵기로 완성된 200개 이상의 아이콘 세트.',
+    tags: ['Icon', 'Design System'],
+    link: '#',
+    meta: [
+      { label: 'Client', value: 'In-house' },
+      { label: 'Year',   value: '2024' },
+      { label: 'Role',   value: 'Icon Design' },
+      { label: 'Count',  value: '200+ Icons' },
+    ],
+    colors: ['#FFFFFF', '#797979', '#000000'],
+  },
+  {
+    size: 'tall',
+    title: 'AEM 글로',
+    subtitle: 'UI/UX · Motion',
+    image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=700&q=80',
+    description: '팔라스 스케이트보딩의 아카이브 플랫폼. 드롭 컬렉션과 히스토리를 시각적으로 탐색할 수 있는 인터랙티브 경험을 제공합니다.',
+    tags: ['UI/UX', 'Motion', 'Archive'],
+    link: '#',
+    meta: [
+      { label: 'Client', value: 'Palace Skate' },
+      { label: 'Year',   value: '2024' },
+      { label: 'Role',   value: 'UI Design' },
+      { label: 'Stack',  value: 'React, Three.js' },
+    ],
+    colors: ['#FFFFFF', '#F4F4F4', '#ADADAD', '#797979', '#505050', '#000000'],
+  },
+  
+  {
     size: 'square',
-    title: 'Motion Grid',
+    title: '에실로',
     subtitle: 'Creative Dev',
     image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&q=80',
     description: '크리에이티브 에이전시의 포트폴리오 사이트. GSAP 기반의 고성능 스크롤 인터랙션과 3D 전환 효과.',
@@ -269,7 +278,7 @@ const projects = [
   },
   {
     size: 'square',
-    title: 'Mono Type',
+    title: '디아지오 쿠폰',
     subtitle: 'Typography',
     image: 'https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=600&q=80',
     description: '타이포그래피 중심의 브랜드 가이드라인 시스템. 다양한 매체에서 일관된 타이포그래피 경험.',
@@ -283,6 +292,54 @@ const projects = [
     ],
     colors: ['#FFFFFF', '#F4F4F4', '#797979', '#000000'],
   },
+  {
+    size: 'small',
+    title: '토마토 쇼핑몰 web app',
+    subtitle: 'UI Icons',
+    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80',
+    description: '커머스 플랫폼을 위한 커스텀 아이콘 시스템. 일관된 그리드와 획 굵기로 완성된 200개 이상의 아이콘 세트.',
+    tags: ['Icon', 'Design System'],
+    link: '#',
+    meta: [
+      { label: 'Client', value: 'In-house' },
+      { label: 'Year',   value: '2024' },
+      { label: 'Role',   value: 'Icon Design' },
+      { label: 'Count',  value: '200+ Icons' },
+    ],
+    colors: ['#FFFFFF', '#797979', '#000000'],
+  },
+  {
+    size: 'small',
+    title: '토마토 b2b 웹 앱',
+    subtitle: 'UI Icons',
+    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80',
+    description: '커머스 플랫폼을 위한 커스텀 아이콘 시스템. 일관된 그리드와 획 굵기로 완성된 200개 이상의 아이콘 세트.',
+    tags: ['Icon', 'Design System'],
+    link: '#',
+    meta: [
+      { label: 'Client', value: 'In-house' },
+      { label: 'Year',   value: '2024' },
+      { label: 'Role',   value: 'Icon Design' },
+      { label: 'Count',  value: '200+ Icons' },
+    ],
+    colors: ['#FFFFFF', '#797979', '#000000'],
+  },
+  {
+    size: 'wide',
+    title: 'ERP',
+    subtitle: 'Product · Mobile App',
+    image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=900&q=80',
+    description: '스트리트웨어 브랜드 Fnits의 공식 온라인 스토어 및 브랜드 아이덴티티 디자인. 빈티지 감성과 현대적 UI를 결합하여 독창적인 쇼핑 경험을 제공합니다. ',
+    tags: ['Product', 'Mobile', 'Marketplace'],
+    link: '#',
+    meta: [
+      { label: 'Client', value: 'StyleSeller Inc.' },
+      { label: 'Year',   value: '2023' },
+      { label: 'Role',   value: 'Full-stack' },
+      { label: 'Stack',  value: 'Nuxt, Node' },
+    ],
+    colors: ['#FFFFFF', '#F4F4F4', '#ADADAD', '#797979', '#505050', '#000000'],
+  },
 ];
 
 // ── 레이아웃 순서 정의 ──
@@ -293,11 +350,17 @@ const projects = [
 // 원하는 순서: tall → mixed → tall → mixed → mixed(wide 1행, small 2행) → tall
 const layout = [
     // mixed (small 위, wide 아래)
-  { type: 'mixed-small-top', smalls: [2, 3], wide: 4 },
-  { type: 'single', index: 0 },                          // tall
-  { type: 'mixed-wide-top',  wide: 4, smalls: [2, 3] },  // mixed (wide 위, small 아래)  ← 예시, 인덱스 조정하세요
-  { type: 'single', index: 1 },                          // tall
-  { type: 'double-square', squares: [5, 6] }  // 정사각형 2개 세로로
+    { type: 'single', index: 0 },                          // tall
+     { type: 'mixed-wide-top',  wide: 1, smalls: [2, 3] },  // mixed (wide 위, small 아래)  ← 예시, 인덱스 조정하세요
+   
+   { type: 'single', index: 4 },                          // tall
+  { type: 'double-square', squares: [5, 6]},  // 정사각형 2개 세로로
+  { type: 'mixed-small-top', smalls: [7, 8], wide: 9 },
+  
+  
+   
+  
+  
 ];
 
 onMounted(() => {
@@ -417,6 +480,7 @@ const closeModal = () => {
   flex-direction: row;
   gap: 40px;
   flex-shrink: 0;
+  flex: 1; 
 }
 
 /* ── 카드 크기 변형 ──
@@ -435,7 +499,7 @@ const closeModal = () => {
 .project-card--small {
   width: 16vw;
   min-width: 200px;
-  height: calc((76vh / 2) - 40px);
+  height: 100%; 
 }
 
 .project-card--wide {
@@ -472,7 +536,7 @@ const closeModal = () => {
   inset: 0;
   display: flex;
   align-items: flex-end;
-  padding: 20px 20px 35px;
+  padding: 20px 20px 30px;
   background: linear-gradient(
     to top,
     rgba(0, 0, 0, 0.65) 0%,
@@ -512,6 +576,7 @@ const closeModal = () => {
   color: rgba(255,255,255,0.45);
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  margin-top: 10px;
 }
 
 /* ────────────────────────────
@@ -589,13 +654,13 @@ const closeModal = () => {
 }
 
 .modal-left::-webkit-scrollbar, .modal-right::-webkit-scrollbar{
-  display: none;             /* ← 스크롤바 숨김 (Chrome) */
+  display: none;           
 }
 
-/* modal-img 고정 높이 제거하고 자연스럽게 */
+
 .modal-img {
   width: 100%;
-  height: auto;              /* ← flex:1 에서 변경 */
+  height: auto;            
   min-height: 500px;
   object-fit: cover;
   display: block;
@@ -607,34 +672,36 @@ const closeModal = () => {
   flex-wrap: wrap;
   gap: 7px;
   flex-shrink: 0;
+  margin-top: 10px
 }
 
 .modal-tag {
   font-size: 0.62rem;
-  color: #777;
+  color: #fff;
   border: 1px solid #222;
   padding: 4px 13px;
   border-radius: 20px;
   background: #141414;
   letter-spacing: 0.06em;
+
 }
 
 /* 모달 우측 */
 .modal-right {
   flex: 1;
-  padding: 38px ;
+  padding: 50px ;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  justify-content: space-between;
   overflow-y: auto;
 }
 
-.modal-num {
-  font-size: 0.62rem;
-  color: #2e2e2e;
-  font-weight: 700;
-  letter-spacing: 0.16em;
+.modal-right-top{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
+
 
 .modal-title {
   font-size: clamp(1.8rem, 2.8vw, 2.5rem);
@@ -644,18 +711,12 @@ const closeModal = () => {
   line-height: 1.1;
 }
 
-.modal-sub {
-  font-size: 0.68rem;
-  color: #444;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
 
 .modal-desc {
   font-size: 0.82rem;
   color: #5a5a5a;
   line-height: 1.85;
-  padding-top: 12px;
+  padding-top: 20px;
   border-top: 1px solid #1a1a1a;
 }
 
@@ -673,11 +734,12 @@ const closeModal = () => {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  min-width: 0; 
 }
 
 .meta-label {
   font-size: 0.56rem;
-  color: #333;
+  color: #6b6b6b;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-weight: 700;
@@ -687,6 +749,9 @@ const closeModal = () => {
   font-size: 0.8rem;
   color: #ddd;
   font-weight: 600;
+  white-space: nowrap;       
+  overflow: hidden;            
+  text-overflow: ellipsis;
 }
 
 /* 모달 컬러 칩 */
