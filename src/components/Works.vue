@@ -15,7 +15,7 @@
           <img :src="projects[block.index].image" :alt="projects[block.index].title" class="project-card__img" />
           <div class="project-card__overlay">
             <div class="project-card__info">
-              <span class="project-card__num">{{ String(block.index + 1).padStart(2, '0') }}</span>
+              <!-- <span class="project-card__num">{{ String(block.index + 1).padStart(2, '0') }}</span> -->
               <h3 class="project-card__title">{{ projects[block.index].title }}</h3>
               <p class="project-card__sub">{{ projects[block.index].subtitle }}</p>
             </div>
@@ -31,7 +31,7 @@
             <img :src="projects[block.wide].image" :alt="projects[block.wide].title" class="project-card__img" />
             <div class="project-card__overlay">
               <div class="project-card__info">
-                <span class="project-card__num">{{ String(block.wide + 1).padStart(2, '0') }}</span>
+                <!-- <span class="project-card__num">{{ String(block.wide + 1).padStart(2, '0') }}</span> -->
                 <h3 class="project-card__title">{{ projects[block.wide].title }}</h3>
                 <p class="project-card__sub">{{ projects[block.wide].subtitle }}</p>
               </div>
@@ -46,7 +46,7 @@
               <img :src="projects[si].image" :alt="projects[si].title" class="project-card__img" />
               <div class="project-card__overlay">
                 <div class="project-card__info">
-                  <span class="project-card__num">{{ String(si + 1).padStart(2, '0') }}</span>
+                  <!-- <span class="project-card__num">{{ String(si + 1).padStart(2, '0') }}</span> -->
                   <h3 class="project-card__title">{{ projects[si].title }}</h3>
                   <p class="project-card__sub">{{ projects[si].subtitle }}</p>
                 </div>
@@ -66,7 +66,7 @@
               <img :src="projects[si].image" :alt="projects[si].title" class="project-card__img" />
               <div class="project-card__overlay">
                 <div class="project-card__info">
-                  <span class="project-card__num">{{ String(si + 1).padStart(2, '0') }}</span>
+                  <!-- <span class="project-card__num">{{ String(si + 1).padStart(2, '0') }}</span> -->
                   <h3 class="project-card__title">{{ projects[si].title }}</h3>
                   <p class="project-card__sub">{{ projects[si].subtitle }}</p>
                 </div>
@@ -80,9 +80,27 @@
             <img :src="projects[block.wide].image" :alt="projects[block.wide].title" class="project-card__img" />
             <div class="project-card__overlay">
               <div class="project-card__info">
-                <span class="project-card__num">{{ String(block.wide + 1).padStart(2, '0') }}</span>
+                <!-- <span class="project-card__num">{{ String(block.wide + 1).padStart(2, '0') }}</span> -->
                 <h3 class="project-card__title">{{ projects[block.wide].title }}</h3>
                 <p class="project-card__sub">{{ projects[block.wide].subtitle }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 정사각형 2개 세로 묶음 -->
+        <div v-else-if="block.type === 'double-square'" class="mixed-col">
+          <div
+            v-for="si in block.squares" :key="si"
+            class="project-card project-card--square"
+            @click="openModal(si)"
+          >
+            <img :src="projects[si].image" :alt="projects[si].title" class="project-card__img" />
+            <div class="project-card__overlay">
+              <div class="project-card__info">
+                <!-- <span class="project-card__num">{{ String(si + 1).padStart(2, '0') }}</span> -->
+                <h3 class="project-card__title">{{ projects[si].title }}</h3>
+                <p class="project-card__sub">{{ projects[si].subtitle }}</p>
               </div>
             </div>
           </div>
@@ -92,70 +110,55 @@
 
     </div>
 
-    <!-- ── 팝업 모달 ── -->
+    
+
+  </div>
+  <Teleport to="body">
     <Transition name="modal">
       <div v-if="activeIndex !== null" class="modal-backdrop" @click.self="closeModal">
         <div class="modal">
           <button class="modal-close" @click="closeModal">✕</button>
-
           <div class="modal-inner">
-            <!-- 좌측: 이미지 -->
+            <!-- 좌측 -->
             <div class="modal-left">
               <img
-                :src="projects[activeIndex].image"
-                :alt="projects[activeIndex].title"
-                class="modal-img"
-              />
-              <div class="modal-tags">
-                <span v-for="tag in projects[activeIndex].tags" :key="tag" class="modal-tag">
-                  {{ tag }}
-                </span>
-              </div>
+    :src="projects[activeIndex].modalImage || projects[activeIndex].image"
+    :alt="projects[activeIndex].title"
+    class="modal-img"
+  />
+              
             </div>
-
-            <!-- 우측: 정보 -->
+            <!-- 우측 -->
             <div class="modal-right">
-              <p class="modal-num">{{ String(activeIndex + 1).padStart(2, '0') }}</p>
+              
               <h2 class="modal-title">{{ projects[activeIndex].title }}</h2>
+              <div class="modal-tags">
+                <span v-for="tag in projects[activeIndex].tags" :key="tag" class="modal-tag">{{ tag }}</span>
+              </div>
               <p class="modal-sub">{{ projects[activeIndex].subtitle }}</p>
               <p class="modal-desc">{{ projects[activeIndex].description }}</p>
-
               <div class="modal-meta">
-                <div
-                  class="meta-item"
-                  v-for="meta in projects[activeIndex].meta"
-                  :key="meta.label"
-                >
+                <div class="meta-item" v-for="meta in projects[activeIndex].meta" :key="meta.label">
                   <span class="meta-label">{{ meta.label }}</span>
                   <span class="meta-value">{{ meta.value }}</span>
                 </div>
               </div>
-
               <div class="modal-colors">
-                <div
-                  v-for="col in projects[activeIndex].colors"
-                  :key="col"
-                  class="modal-chip"
-                  :style="{ background: col }"
-                >
+                <div v-for="col in projects[activeIndex].colors" :key="col" class="modal-chip" :style="{ background: col }">
                   <span class="modal-chip-label">{{ col }}</span>
                 </div>
               </div>
-
-              <a :href="projects[activeIndex].link" class="modal-btn" target="_blank">
-                View Project →
-              </a>
+              <a :href="projects[activeIndex].link" class="modal-btn" target="_blank">View Project →</a>
             </div>
           </div>
         </div>
       </div>
     </Transition>
-
-  </div>
+  </Teleport>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -201,11 +204,12 @@ const projects = [
   },
   {
     size: 'small',
-    title: 'Fnits Logo',
-    subtitle: 'Identity',
-    image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=500&q=80',
+    title: 'eDM Newsletter',
+    subtitle: 'HTML table',
+    image: '/img/works/edm_thum.png',        // 카드 썸네일
+    modalImage: '/img/works/edm_imgwrap.png', // 모달 이미지
     description: 'Fnits 브랜드 로고타입 및 심볼 디자인. 레트로 스케이트 문화에서 영감을 받은 독창적인 레터링 시스템.',
-    tags: ['Logo', 'Identity'],
+    tags: ['HTML', 'table'],
     link: '#',
     meta: [
       { label: 'Client', value: 'Fnits Studio' },
@@ -236,7 +240,7 @@ const projects = [
     title: 'StyleSeller',
     subtitle: 'Product · Mobile App',
     image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=900&q=80',
-    description: '개인 셀러를 위한 스타일 마켓플레이스. 빠른 상품 등록과 큐레이션 피드를 통해 빈티지 패션 거래를 혁신합니다.',
+    description: '스트리트웨어 브랜드 Fnits의 공식 온라인 스토어 및 브랜드 아이덴티티 디자인. 빈티지 감성과 현대적 UI를 결합하여 독창적인 쇼핑 경험을 제공합니다. ',
     tags: ['Product', 'Mobile', 'Marketplace'],
     link: '#',
     meta: [
@@ -288,11 +292,12 @@ const projects = [
 //
 // 원하는 순서: tall → mixed → tall → mixed → mixed(wide 1행, small 2행) → tall
 const layout = [
+    // mixed (small 위, wide 아래)
+  { type: 'mixed-small-top', smalls: [2, 3], wide: 4 },
   { type: 'single', index: 0 },                          // tall
-  { type: 'mixed-small-top', smalls: [2, 3], wide: 4 },  // mixed (small 위, wide 아래)
-  { type: 'single', index: 1 },                          // tall
   { type: 'mixed-wide-top',  wide: 4, smalls: [2, 3] },  // mixed (wide 위, small 아래)  ← 예시, 인덱스 조정하세요
-  { type: 'single', index: 5 },                          // tall (square도 single로 넣기 가능)
+  { type: 'single', index: 1 },                          // tall
+  { type: 'double-square', squares: [5, 6] }  // 정사각형 2개 세로로
 ];
 
 onMounted(() => {
@@ -316,6 +321,31 @@ const openModal = (index) => {
   activeIndex.value = index;
   document.body.style.overflow = 'hidden';
 };
+
+
+const modalInnerRef = ref(null);
+const modalLeftRef = ref(null);
+
+// 모달 열릴 때마다 스크롤 이벤트 등록
+watch(activeIndex, (val) => {
+  if (val !== null) {
+    // DOM 업데이트 후 실행
+    setTimeout(() => {
+      const right = document.querySelector('.modal-right');
+      const left = document.querySelector('.modal-left');
+      if (!right || !left) return;
+
+      right.addEventListener('scroll', () => {
+        // 우측 스크롤량의 40%만 좌측에 적용 (느리게)
+        left.scrollTop = right.scrollTop * 2;
+      });
+      /* left.addEventListener('scroll', () => {
+        // 좌측 스크롤량의 40%만 우측에 적용 (느리게)
+        right.scrollTop = left.scrollTop * 0.4;
+      }); */
+    }, 50);
+  }
+});
 
 const closeModal = () => {
   activeIndex.value = null;
@@ -349,8 +379,9 @@ const closeModal = () => {
   align-content: flex-start;
   width: max-content;
   height: 100vh;
-  padding: 5vh 5vw;
-  gap: 12px;
+  padding: 12vh 15vw;
+  gap: 40px;
+  background: #0a0a0a;
 }
 
 /* ────────────────────────────
@@ -375,16 +406,16 @@ const closeModal = () => {
 .mixed-col {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 40px;
   flex-shrink: 0;
-  height: calc(90vh - 10px);
+  height: 100%;
 }
 
 /* ── small 2개 가로 묶음 ── */
 .small-row {
   display: flex;
   flex-direction: row;
-  gap: 12px;
+  gap: 40px;
   flex-shrink: 0;
 }
 
@@ -396,15 +427,15 @@ const closeModal = () => {
    square= 중간 정사각형 (6,7번 - 하단 오른쪽)
 */
 .project-card--tall {
-  width: 22vw;
-  min-width: 240px;
-  height: calc(90vh - 10px - 12px);   /* 두 줄 합친 전체 높이 */
+  width: 28vw;
+  min-width: 400px;
+  height: 100%   /* 두 줄 합친 전체 높이 */
 }
 
 .project-card--small {
-  width: 14vw;
-  min-width: 155px;
-  height: calc((90vh - 10px - 12px) / 2 - 6px);
+  width: 16vw;
+  min-width: 200px;
+  height: calc((76vh / 2) - 40px);
 }
 
 .project-card--wide {
@@ -413,7 +444,7 @@ const closeModal = () => {
 }
 
 .project-card--square {
-  width: 18vw;
+  width: 20vw;
   min-width: 200px;
   height: calc((90vh - 10px - 12px) / 2 - 6px);
 }
@@ -441,7 +472,7 @@ const closeModal = () => {
   inset: 0;
   display: flex;
   align-items: flex-end;
-  padding: 20px;
+  padding: 20px 20px 35px;
   background: linear-gradient(
     to top,
     rgba(0, 0, 0, 0.65) 0%,
@@ -503,12 +534,13 @@ const closeModal = () => {
    모달 본체
 ──────────────────────────── */
 .modal {
-  background: #111111;
+  background: #fff;
   border: 1px solid #222;
   border-radius: 24px;
   width: 100%;
-  max-width: 980px;
-  max-height: 86vh;
+  height: 85vh;
+  max-width: 85vw;
+  max-height: 85vh;
   overflow: hidden;
   position: relative;
   display: flex;
@@ -545,31 +577,35 @@ const closeModal = () => {
   overflow: hidden;
 }
 
-/* 모달 좌측 */
+/* 모달 좌측 - 스크롤바 숨기고 overflow 허용 */
 .modal-left {
-  width: 46%;
+  width: 50%;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
   border-right: 1px solid #1a1a1a;
+  overflow-y: scroll;       
+  scrollbar-width: none;     
 }
 
+.modal-left::-webkit-scrollbar, .modal-right::-webkit-scrollbar{
+  display: none;             /* ← 스크롤바 숨김 (Chrome) */
+}
+
+/* modal-img 고정 높이 제거하고 자연스럽게 */
 .modal-img {
-  flex: 1;
   width: 100%;
-  height: 0;
-  min-height: 300px;
+  height: auto;              /* ← flex:1 에서 변경 */
+  min-height: 500px;
   object-fit: cover;
   display: block;
+  flex-shrink: 0;
 }
 
 .modal-tags {
-  padding: 18px 22px;
   display: flex;
   flex-wrap: wrap;
   gap: 7px;
-  background: #0d0d0d;
-  border-top: 1px solid #1a1a1a;
   flex-shrink: 0;
 }
 
@@ -586,7 +622,7 @@ const closeModal = () => {
 /* 모달 우측 */
 .modal-right {
   flex: 1;
-  padding: 44px 38px 32px;
+  padding: 38px ;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -603,7 +639,7 @@ const closeModal = () => {
 .modal-title {
   font-size: clamp(1.8rem, 2.8vw, 2.5rem);
   font-weight: 800;
-  color: #fff;
+  color: #2e2e2e;
   letter-spacing: -0.04em;
   line-height: 1.1;
 }

@@ -82,18 +82,6 @@ const H = 620;
 //    ③ 메인 몸통: TypeScript(2) → JavaScript(3) → Node.js(4) → Figma(5) → GSAP(6) → CSS(7) → Sass(8) → Git(9) → GitHub(10)
 //  집게(좌하단): Figma(5) → HTML(11) → Vite(12) → Vite2(13)
 
-/* 
-
-인덱스 번호가 밀리면서 edges의 참조가 깨지는 게 문제예요. stars에서 Next.js(3번) 삭제하면 그 뒤 번호가 전부 -1씩 밀리니까 edges도 같이 수정해야 해요.
-앞으로 별을 추가/삭제할 때 규칙은 이거예요:
-
-stars 배열에서 삭제 → 그 뒤 모든 별의 인덱스가 -1씩 밀림
-edges 배열도 반드시 같이 수정 → 삭제한 인덱스를 참조하는 엣지 제거, 밀린 인덱스 번호 전부 업데이트
-
-가장 쉬운 방법은 stars 주석에 // 0, // 1 번호를 항상 표기해두고, 삭제 후 주석 번호를 다시 매기면서 edges랑 맞추는 거예요!
-
-*/
-
 const stars = [
   // ── 꼬리 (우상단) ──
   { x: 570, y:  55, name: 'React',      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },       // 0
@@ -101,10 +89,10 @@ const stars = [
   { x: 600, y: 185, name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' }, // 2 ← T자 분기점
 
   // ── T자 아래 갈래 ──
-  { x: 530, y: 240, name: 'Nuxt',       icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nuxtjs/nuxtjs-original.svg' },      // 3
+  { x: 620, y: 260, name: 'Nuxt',       icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nuxtjs/nuxtjs-original.svg' },      // 3
+  { x: 620, y: 350, name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' }, // 4
 
   // ── 메인 몸통 (TypeScript → 좌하단 S자) ──
-  { x: 440, y: 225, name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' }, // 4
   { x: 375, y: 280, name: 'Node.js',    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },       // 5
   { x: 310, y: 330, name: 'Figma',      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },        // 6 ← 집게 분기점
   { x: 265, y: 395, name: 'GSAP',       icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },          // 7
@@ -125,11 +113,11 @@ const edges = [
   [0, 1], [1, 2],
 
   // TypeScript 2갈래 (Next.js 제거 후)
-  [2, 3],  // 아래 갈래 → Nuxt
-  [2, 4],  // 메인 몸통 → JavaScript
+  [2, 3], [3, 4],  // 아래 갈래 → Nuxt
+  [2, 5],  // 메인 몸통 → JavaScript
 
   // 메인 몸통
-  [4, 5], [5, 6], [6, 7], [7, 8], [8, 9], [9, 10], [10, 11],
+  [5, 6], [6, 7], [7, 8], [8, 9], [9, 10], [10, 11],
 
   // 왼쪽 집게 (Figma에서 분기)
   [6, 12], [12, 13], [13, 14],
@@ -139,35 +127,36 @@ const edges = [
 const hoveredStar = ref(null);
 const litEdges = reactive(new Set());
 
-let litTimeout = null;
+// 깊이(depth)만큼 BFS로 연결된 엣지를 수집
+const getEdgesWithinDepth = (startNode, depth) => {
+  const result = new Set();
+  let currentNodes = new Set([startNode]);
+
+  for (let d = 0; d < depth; d++) {
+    const nextNodes = new Set();
+    edges.forEach((e, ei) => {
+      if (currentNodes.has(e[0]) || currentNodes.has(e[1])) {
+        result.add(ei);
+        nextNodes.add(e[0]);
+        nextNodes.add(e[1]);
+      }
+    });
+    currentNodes = nextNodes;
+  }
+  return result;
+};
 
 const onHover = (si) => {
   hoveredStar.value = si;
   litEdges.clear();
 
-  // si와 연결된 엣지들을 순차적으로 빛나게
-  const connected = edges
-    .map((e, ei) => ({ ei, delay: 0 }))
-    .filter(({ ei }) => edges[ei][0] === si || edges[ei][1] === si);
+  // ↓ 숫자를 바꾸면 빛나는 범위 조절
+  //   1 = 직접 연결된 선만
+  //   2 = 앞뒤 2개씩  ← 현재 설정
+  //   3 = 앞뒤 3개씩
+  const depth = 2;
 
-  // 1. 직접 연결된 엣지 즉시
-  connected.forEach(({ ei }) => litEdges.add(ei));
-
-  // 2. 거기서 또 연결된 엣지를 150ms 후 전파
-  clearTimeout(litTimeout);
-  litTimeout = setTimeout(() => {
-    const secondDegree = new Set();
-    connected.forEach(({ ei }) => {
-      edges[ei].forEach(node => {
-        edges.forEach((e2, ei2) => {
-          if ((e2[0] === node || e2[1] === node) && !litEdges.has(ei2)) {
-            secondDegree.add(ei2);
-          }
-        });
-      });
-    });
-    secondDegree.forEach(ei2 => litEdges.add(ei2));
-  }, 150);
+  getEdgesWithinDepth(si, depth).forEach(ei => litEdges.add(ei));
 };
 
 const onLeave = () => {
