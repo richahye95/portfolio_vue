@@ -45,15 +45,15 @@
     <div class="contact-inner">
       <span class="contact-label">Contact</span>
       <div class="contact-links">
-        <a href="mailto:your@email.com" class="contact-item">
+        <a href="mailto:himy1114@naver.com" class="contact-item">
           <span class="contact-type">Email</span>
-          <span class="contact-value">your@email.com</span>
+          <span class="contact-value">himy1114@naver.com</span>
           <span class="contact-arrow">↗</span>
         </a>
         <div class="contact-divider"></div>
-        <a href="tel:+821012345678" class="contact-item">
+        <a href="tel:+821092304170" class="contact-item">
           <span class="contact-type">Phone</span>
-          <span class="contact-value">010-1234-5678</span>
+          <span class="contact-value">010-9230-4170</span>
           <span class="contact-arrow">↗</span>
         </a>
       </div>
@@ -88,6 +88,10 @@
 /* 좌측 이미지 */
 .intro-left {
   flex-shrink: 0;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;;
 }
 
 .intro-img {
@@ -243,7 +247,7 @@
     gap: 0 24px;
   }
   .intro-left{
-    width: auto;
+    width: 30%;
   }
 
   .intro-img {
