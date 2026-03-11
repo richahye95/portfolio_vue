@@ -3,24 +3,6 @@
     <canvas ref="canvasRef" class="webgl"></canvas>
 
     <div class="wrap">
-      <!-- <section class="section text_white">
-        <h1>Structure <br>
-          <span>탄탄한 [체계]로 내실을 다지고</span>
-        </h1>
-      </section>
-      <section class="section text_gray">
-        <h1>Interface<br>
-          <span>유연한 [소통]으로 사용자와 연결되며</span>
-        </h1>
-      </section>
-      <section class="section">
-        <h1>Development<br>
-          <span>[구현]을 통해 결과물의 가치를 입증합니다</span>
-        </h1>
-      </section>
-      <section class="section text_small">   
-        <h1>웹 퍼블리셔 차혜리 입니다.</h1>
-      </section> -->
       <section class="section text_white">
         <h1>web publisher
         </h1>

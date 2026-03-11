@@ -1,20 +1,23 @@
 <template>
   <section class="skill-section">
 
-    <!-- 배경 별들 (랜덤 작은 별) -->
+    <!-- 배경 별들 -->
     <canvas ref="starsCanvas" class="stars-bg"></canvas>
 
     <!-- 섹션 타이틀 -->
     <div class="section-header">
       <span class="section-label">Skills</span>
-      <h2 class="section-title">Tech<br /><em>Stack</em></h2>
     </div>
 
     <!-- 별자리 SVG + 아이콘 레이어 -->
-    <div class="constellation-wrap">
+    <div
+      class="constellation-wrap"
+      ref="wrapRef"
+      :style="{ width: scaledW + 'px', height: scaledH + 'px' }"
+    >
       <svg
         class="constellation-svg"
-        :viewBox="`0 0 ${W} ${H}`"
+        :viewBox="`0 0 ${BASE_W} ${BASE_H}`"
         xmlns="http://www.w3.org/2000/svg"
       >
         <!-- 연결선 -->
@@ -29,7 +32,6 @@
             class="constellation-line"
             :class="{ 'line--lit': litEdges.has(ei) }"
           />
-          <!-- 빛 번짐 (lit 상태일 때 glow 레이어) -->
           <line
             v-for="(edge, ei) in edges"
             :key="`g-${ei}`"
@@ -43,14 +45,18 @@
         </g>
       </svg>
 
-      <!-- 스킬 아이콘 노드 -->
+      <!-- 스킬 아이콘 노드: 스케일된 좌표로 배치 -->
       <div
         v-for="(star, si) in stars"
         :key="si"
         class="star-node"
-        :style="{ left: star.x + 'px', top: star.y + 'px' }"
+        :style="{
+          left: star.x * scale + 'px',
+          top:  star.y * scale + 'px',
+        }"
         @mouseenter="onHover(si)"
         @mouseleave="onLeave"
+        @click="onHover(si)"
       >
         <div class="star-core" :class="{ 'star-core--active': hoveredStar === si }">
           <img :src="star.icon" :alt="star.name" class="star-icon" />
@@ -66,72 +72,65 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from 'vue';
+import { ref, onMounted, onUnmounted, reactive, computed } from 'vue';
 
-// ── 캔버스 크기 ──
-const W = 700;
-const H = 620;
+// ── 기준 캔버스 크기 (디자인 원본) ──
+const BASE_W = 700;
+const BASE_H = 620;
 
-// ── 전갈자리 별 위치 + 스킬 ──
-//
-// 구조:
-//  꼬리(우상단):  React(0) → Vue(1) → TypeScript(2)
-//  TypeScript에서 T자 3갈래:
-//    ① 위  갈래: TypeScript(2) → Next.js(14)
-//    ② 아래 갈래: TypeScript(2) → Nuxt(15)
-//    ③ 메인 몸통: TypeScript(2) → JavaScript(3) → Node.js(4) → Figma(5) → GSAP(6) → CSS(7) → Sass(8) → Git(9) → GitHub(10)
-//  집게(좌하단): Figma(5) → HTML(11) → Vite(12) → Vite2(13)
+// ── 현재 스케일 (반응형) ──
+const scale = ref(1);
+const scaledW = computed(() => BASE_W * scale.value);
+const scaledH = computed(() => BASE_H * scale.value);
 
+// 섹션 너비 기준으로 스케일 계산
+const updateScale = () => {
+  const vw = window.innerWidth;
+  if (vw >= 1200) {
+    scale.value = 1;
+  } else if (vw >= 900) {
+    scale.value = 0.78;
+  } else if (vw >= 600) {
+    scale.value = 0.58;
+  } else if (vw >= 400) {
+    scale.value = 0.46;
+  } else {
+    scale.value = 0.38;
+  }
+};
+
+// ── 스킬 별 데이터 (좌표는 BASE 기준 고정) ──
 const stars = [
-  // ── 꼬리 (우상단) ──
-  { x: 570, y:  55, name: 'React',      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },       // 0
-  { x: 600, y: 115, name: 'Vue',        icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg' },        // 1
-  { x: 600, y: 185, name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' }, // 2 ← T자 분기점
-
-  // ── T자 아래 갈래 ──
-  { x: 620, y: 260, name: 'Nuxt',       icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nuxtjs/nuxtjs-original.svg' },      // 3
-  { x: 620, y: 350, name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' }, // 4
-
-  // ── 메인 몸통 (TypeScript → 좌하단 S자) ──
-  { x: 375, y: 280, name: 'Node.js',    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },       // 5
-  { x: 310, y: 330, name: 'Figma',      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },        // 6 ← 집게 분기점
-  { x: 265, y: 395, name: 'GSAP',       icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },          // 7
-  { x: 285, y: 460, name: 'CSS',        icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },          // 8
-  { x: 345, y: 508, name: 'Sass',       icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg' },          // 9
-  { x: 400, y: 550, name: 'Git',        icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },            // 10
-  { x: 445, y: 590, name: 'GitHub',     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg' },      // 11
-
-  // ── 왼쪽 집게 (Figma에서 분기) ──
-  { x: 170, y: 345, name: 'HTML',       icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },        // 12
-  { x: 105, y: 390, name: 'Vite',       icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg' },      // 13
-  { x: 115, y: 455, name: 'Sass2',      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg' },          // 14
+  { x: 570, y:  55, name: 'React',      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+  { x: 600, y: 115, name: 'Vue',        icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg' },
+  { x: 600, y: 185, name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
+  { x: 620, y: 260, name: 'Vite',       icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg' },
+  { x: 620, y: 350, name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
+  { x: 375, y: 280, name: 'Figma',      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
+  { x: 310, y: 330, name: 'HTML',       icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
+  { x: 265, y: 395, name: 'CSS',        icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
+  { x: 285, y: 460, name: 'Sass',       icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg' },
+  { x: 345, y: 508, name: 'GSAP',       icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
+  { x: 170, y: 345, name: 'Git',        icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
+  { x: 105, y: 390, name: 'GitHub',     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg' },
 ];
 
-// ── 연결선 ──
 const edges = [
-  // 꼬리: React → Vue → TypeScript
   [0, 1], [1, 2],
-
-  // TypeScript 2갈래 (Next.js 제거 후)
-  [2, 3], [3, 4],  // 아래 갈래 → Nuxt
-  [2, 5],  // 메인 몸통 → JavaScript
-
-  // 메인 몸통
-  [5, 6], [6, 7], [7, 8], [8, 9], [9, 10], [10, 11],
-
-  // 왼쪽 집게 (Figma에서 분기)
-  [6, 12], [12, 13], [13, 14],
+  [2, 3], [3, 4],
+  [2, 5],
+  [5, 6], [6, 7], [7, 8], [8, 9],
+  [6, 10], [10, 11],
 ];
 
 // ── 호버 상태 ──
 const hoveredStar = ref(null);
 const litEdges = reactive(new Set());
+let litTimeout = null;
 
-// 깊이(depth)만큼 BFS로 연결된 엣지를 수집
 const getEdgesWithinDepth = (startNode, depth) => {
   const result = new Set();
   let currentNodes = new Set([startNode]);
-
   for (let d = 0; d < depth; d++) {
     const nextNodes = new Set();
     edges.forEach((e, ei) => {
@@ -149,14 +148,7 @@ const getEdgesWithinDepth = (startNode, depth) => {
 const onHover = (si) => {
   hoveredStar.value = si;
   litEdges.clear();
-
-  // ↓ 숫자를 바꾸면 빛나는 범위 조절
-  //   1 = 직접 연결된 선만
-  //   2 = 앞뒤 2개씩  ← 현재 설정
-  //   3 = 앞뒤 3개씩
-  const depth = 2;
-
-  getEdgesWithinDepth(si, depth).forEach(ei => litEdges.add(ei));
+  getEdgesWithinDepth(si, 2).forEach(ei => litEdges.add(ei));
 };
 
 const onLeave = () => {
@@ -168,12 +160,13 @@ const onLeave = () => {
 // ── 배경 별 캔버스 ──
 const starsCanvas = ref(null);
 
-onMounted(() => {
+const drawStars = () => {
   const canvas = starsCanvas.value;
+  if (!canvas) return;
   const ctx = canvas.getContext('2d');
   canvas.width = canvas.offsetWidth;
   canvas.height = canvas.offsetHeight;
-
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   for (let i = 0; i < 280; i++) {
     const x = Math.random() * canvas.width;
     const y = Math.random() * canvas.height;
@@ -184,6 +177,21 @@ onMounted(() => {
     ctx.fillStyle = `rgba(255,255,255,${alpha})`;
     ctx.fill();
   }
+};
+
+const onResize = () => {
+  updateScale();
+  drawStars();
+};
+
+onMounted(() => {
+  updateScale();
+  drawStars();
+  window.addEventListener('resize', onResize);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', onResize);
 });
 </script>
 
@@ -192,9 +200,7 @@ onMounted(() => {
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ────────────────────────────
-   섹션 전체
-──────────────────────────── */
+/* ── 섹션 전체 ── */
 .skill-section {
   position: relative;
   width: 100%;
@@ -225,7 +231,7 @@ onMounted(() => {
 }
 
 .section-label {
-  font-size: 0.62rem;
+  font-size: 1rem;
   color: #3a4060;
   text-transform: uppercase;
   letter-spacing: 0.18em;
@@ -234,29 +240,14 @@ onMounted(() => {
   margin-bottom: 10px;
 }
 
-.section-title {
-  font-size: clamp(2.4rem, 4vw, 4.5rem);
-  font-weight: 800;
-  color: #fff;
-  letter-spacing: -0.04em;
-  line-height: 1.05;
-}
-
-.section-title em {
-  font-style: normal;
-  color: #1e2340;
-  -webkit-text-stroke: 1px #2e3560;
-}
-
 /* ── 별자리 래퍼 ── */
 .constellation-wrap {
   position: relative;
-  width: 700px;
-  height: 620px;
   flex-shrink: 0;
+  /* width / height는 :style 바인딩으로 동적 적용 */
 }
 
-/* ── SVG ── */
+/* ── SVG: viewBox 기준으로 내부 좌표 그대로 사용, 크기만 스케일 ── */
 .constellation-svg {
   position: absolute;
   inset: 0;
@@ -265,7 +256,7 @@ onMounted(() => {
   overflow: visible;
 }
 
-/* ── 연결선 기본 ── */
+/* ── 연결선 ── */
 .constellation-line {
   stroke: rgba(255, 255, 255, 0.1);
   stroke-width: 1px;
@@ -278,7 +269,6 @@ onMounted(() => {
   stroke-width: 1.5px;
 }
 
-/* ── 연결선 glow 레이어 ── */
 .constellation-line--glow {
   stroke: rgba(100, 150, 255, 0);
   stroke-width: 6px;
@@ -349,11 +339,12 @@ onMounted(() => {
 /* ── 펄스 링 ── */
 .star-pulse {
   position: absolute;
+  top: 50%;
+  left: 50%;
   width: 42px;
   height: 42px;
   border-radius: 50%;
   border: 1px solid rgba(120, 180, 255, 0);
-  transition: none;
   pointer-events: none;
   z-index: 1;
 }
@@ -365,18 +356,6 @@ onMounted(() => {
 @keyframes pulse-ring {
   0%   { transform: translate(-50%, -50%) scale(1);   border-color: rgba(120,180,255,0.5); opacity: 1; }
   100% { transform: translate(-50%, -50%) scale(2.2); border-color: rgba(120,180,255,0);   opacity: 0; }
-}
-
-.star-pulse {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: 1px solid rgba(120, 180, 255, 0);
-  pointer-events: none;
-  z-index: 1;
 }
 
 /* ── 레이블 ── */
@@ -393,5 +372,53 @@ onMounted(() => {
 
 .star-label--active {
   color: rgba(180, 210, 255, 0.9);
+}
+
+/* ── 모바일: 아이콘/레이블 크기 축소 ── */
+@media (max-width: 767px) {
+  .star-core {
+    width: 32px;
+    height: 32px;
+  }
+
+  .star-icon {
+    width: 15px;
+    height: 15px;
+  }
+
+  .star-pulse {
+    width: 32px;
+    height: 32px;
+  }
+
+  .star-label {
+    font-size: 0.48rem;
+  }
+
+  .section-label {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .star-core {
+    width: 26px;
+    height: 26px;
+  }
+
+  .star-icon {
+    width: 12px;
+    height: 12px;
+  }
+
+  .star-pulse {
+    width: 26px;
+    height: 26px;
+  }
+
+  .star-label {
+    font-size: 0.42rem;
+    letter-spacing: 0.05em;
+  }
 }
 </style>
