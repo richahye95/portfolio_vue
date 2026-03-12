@@ -136,27 +136,32 @@ onMounted(() => {
 <style scoped>
 .wrap {
   width: 100%;
-  overflow-x: hidden;
+  overflow: visible; 
 }
 
 .webgl {
   width: 100% !important;
+  height: 100vh;  
+  height: 100dvh;
   position: sticky;
   top: 0;
   left: 0;
   outline: none;
-  z-index: -1;
+  z-index: 0;
   background: radial-gradient(circle at center, #1a1c2c 0%, #050505 100%);
 }
 
 .section {
   height: 100vh;
+  height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #111;
   font-family: sans-serif;
   pointer-events: none;
+  position: relative;     
+  z-index: 1; 
 }
 
 .section h1 {
