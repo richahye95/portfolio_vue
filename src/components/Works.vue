@@ -897,4 +897,192 @@ const closeModal = () => {
   opacity: 0;
   transform: scale(0.96) translateY(8px);
 }
+/* ================================================
+   모달 반응형
+   breakpoints:
+   - ~767px  : 모바일
+   - 768~1279px : 태블릿
+   - 1280px+ : 기존 데스크탑 유지
+================================================ */
+
+/* ── 태블릿 (768px ~ 1279px) ── */
+@media (max-width: 1279px) {
+  .modal {
+    max-width: 92vw;
+    height: 88vh;
+    max-height: 88vh;
+    border-radius: 20px;
+  }
+
+  .modal-right {
+    padding: 36px 30px;
+  }
+
+  .modal-title {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+  }
+
+  .modal-desc {
+    font-size: 0.78rem;
+  }
+
+  .meta-value {
+    font-size: 0.72rem;
+  }
+}
+
+/* ── 모바일 (~ 767px) ── */
+@media (max-width: 767px) {
+
+  /* 백드롭 패딩 제거 → 모달이 화면을 꽉 채움 */
+  .modal-backdrop {
+    padding: 0;
+    align-items: flex-end;   /* 바텀시트 느낌 */
+  }
+
+  /* 모달 본체 */
+  .modal {
+    width: 100%;
+    max-width: 100%;
+    height: 95dvh;           /* dvh: 모바일 주소창 고려 */
+    max-height: 95dvh;
+    border-radius: 20px 20px 0 0;
+    border-bottom: none;
+  }
+
+  /* 좌우 → 위아래 레이아웃 전환 */
+  .modal-inner {
+    flex-direction: column;
+    overflow-y: auto;        /* 전체 스크롤을 inner가 담당 */
+  }
+
+  /* 좌측(이미지) — 고정 높이로 상단에 */
+  .modal-left {
+    width: 100%;         /* 비율 고정 */
+    max-height: 280px;
+    overflow: hidden;
+    flex-shrink: 0;
+    overflow-y: hidden;      /* 모바일에선 이미지 스크롤 없음 */
+  }
+
+  .modal-img {
+    min-height: unset;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* 우측(텍스트) — 스크롤 영역 */
+  .modal-right {
+    flex: 1;
+    padding: 24px 20px 32px;
+    overflow-y: auto;
+    justify-content: flex-start;
+    gap: 20px;
+  }
+
+  .modal-right-top {
+    gap: 14px;
+  }
+
+  .modal-title {
+    font-size: clamp(1.3rem, 5.5vw, 1.8rem);
+  }
+
+  .modal-tags {
+    gap: 6px;
+    margin-top: 6px;
+  }
+
+  .modal-tag {
+    font-size: 0.6rem;
+    padding: 3px 10px;
+  }
+
+  .modal-desc {
+    font-size: 0.78rem;
+    padding: 14px 0;
+  }
+
+  .modal-desc p {
+    margin-bottom: 14px;
+  }
+
+  /* 메타 2열 → 1열 */
+  .modal-meta {
+    grid-template-columns: 1fr 1fr;  /* 2열 유지, 폰트만 줄임 */
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .meta-item {
+    padding: 10px 12px;
+    border-radius: 10px;
+  }
+
+  .meta-label {
+    font-size: 0.52rem;
+  }
+
+  .meta-value {
+    font-size: 0.7rem;
+    white-space: normal;      /* 모바일에선 줄바꿈 허용 */
+    overflow: visible;
+    text-overflow: unset;
+  }
+
+  .modal-btn {
+    margin-top: 16px;
+    padding: 14px 20px;
+    font-size: 0.72rem;
+    border-radius: 12px;
+    width: 100%;              /* 버튼 풀 너비 */
+    justify-content: center;
+  }
+
+  /* 닫기 버튼 위치 조정 */
+  .modal-close {
+    top: 14px;
+    right: 14px;
+    width: 30px;
+    height: 30px;
+    font-size: 0.7rem;
+  }
+
+  /* 모바일에선 좌우 스크롤 연동 로직 불필요 — inner 단일 스크롤 */
+  .modal-left {
+    overflow-y: hidden;
+  }
+}
+
+/* ── 아주 작은 모바일 (~ 374px) ── */
+@media (max-width: 374px) {
+  .modal-title {
+    font-size: 1.2rem;
+  }
+
+  .modal-meta {
+    grid-template-columns: 1fr;   /* 매우 좁으면 1열 */
+  }
+
+  .modal-left {
+    max-height: 220px;
+  }
+}
+
+/* ── 모달 트랜지션 — 모바일 바텀시트 방향 전환 ── */
+@media (max-width: 767px) {
+  .modal-enter-from .modal,
+  .modal-leave-to .modal {
+    transform: translateY(60px);   /* 위아래로 슬라이드 */
+    opacity: 0;
+  }
+
+  .modal-enter-active .modal {
+    transition: opacity 0.28s ease, transform 0.32s cubic-bezier(0.34, 1.2, 0.64, 1);
+  }
+
+  .modal-leave-active .modal {
+    transition: opacity 0.22s ease, transform 0.22s ease;
+  }
+}
 </style>
