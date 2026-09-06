@@ -13,7 +13,7 @@
         <div class="intro-block">
           <span class="intro-label">경력</span>
           <ul class="intro-list">
-            <li>PMG KOREA - CCP팀 Front-end developer, publisher <span class="date">(2024.03 - )</span></li>
+            <li>PMG KOREA - CCP팀 Front-end developer, publisher <span class="date">(2024.03 - 2026.03 )</span></li>
             <li>(주) 리테일앤인사이트 - TS개발팀 publisher <span class="date">(2022.06 - 2023.08)</span></li>
             <li>서울평가정보 - 운영팀 인사/회계 <span class="date">(2020.07 - 2021.07)</span></li>
           </ul>
@@ -88,7 +88,7 @@
 /* 좌측 이미지 */
 .intro-left {
   flex-shrink: 0;
-  width: 50%;
+  width: 40%;
   display: flex;
   align-items: center;
   justify-content: center;;

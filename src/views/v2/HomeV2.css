@@ -1,0 +1,1219 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/variable/woff2/SUIT-Variable.css');
+
+/* ==========================================================================
+   LEGODT-INSPIRED CLEAN WHITE MODERN THEME (V2 PORTFOLIO)
+   ========================================================================== */
+
+:root {
+  --bg-color: #FFFFFF;
+  --text-primary: #1A1A1A;
+  --text-secondary: #555555;
+  --text-muted: #888888;
+  --accent-color: #1A1A1A;
+  --border-color: #E8E8E8;
+  --card-bg: #FAFAFA;
+  --card-bg-alt: #F5F5F5;
+  --font-family: 'Outfit', 'SUIT Variable', 'SUIT', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ==========================================================================
+   GLOBAL RESET & LAYOUT
+   ========================================================================== */
+.legodt-v2 {
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+.legodt-v2 *,
+.legodt-v2 *::before,
+.legodt-v2 *::after {
+  box-sizing: border-box;
+}
+
+.legodt-v2 a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.legodt-v2 button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+.section-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.legodt-section {
+  padding: 120px 0;
+}
+
+/* Pill shape utility */
+.btn-pill {
+  border-radius: 50px;
+}
+
+/* ==========================================================================
+   SECTION TITLES (LEGODT Clean Typography)
+   ========================================================================== */
+.section-title-box {
+  margin-bottom: 60px;
+}
+
+.section-title-box.center {
+  text-align: center;
+}
+
+.sub-heading {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.main-heading {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--text-primary);
+  margin: 0 0 24px;
+}
+
+.heading-desc {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 600px;
+}
+
+.section-title-box.center .heading-desc {
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   TOP ANNOUNCEMENT BAR
+   ========================================================================== */
+.top-announcement-bar {
+  background-color: #F5F5F5;
+  color: var(--text-primary);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.bar-dot {
+  opacity: 0.5;
+}
+
+/* ==========================================================================
+   HEADER (STICKY, LEGODT Clean White)
+   ========================================================================== */
+.legodt-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  padding: 20px 40px;
+  transition: all 0.3s ease;
+}
+
+.header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-main {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.logo-tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: var(--text-primary);
+  color: #FFFFFF;
+  padding: 4px 10px;
+}
+
+.gnb-nav {
+  display: flex;
+  gap: 32px;
+}
+
+.gnb-link {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  transition: color 0.3s;
+}
+
+.gnb-link:hover {
+  color: var(--text-primary);
+}
+
+.btn-header-cta {
+  background: var(--text-primary);
+  color: #FFFFFF;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 12px 24px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn-header-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================================================
+   HERO SECTION (LEGODT Large Typography)
+   ========================================================================== */
+.legodt-hero {
+  background-color: var(--bg-color);
+  padding: 160px 40px;
+  text-align: center;
+}
+
+.hero-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-badge {
+  background: var(--text-primary);
+  color: #FFFFFF;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 8px 20px;
+  margin-bottom: 32px;
+  letter-spacing: 0.05em;
+  display: inline-block;
+}
+
+.hero-headline {
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--text-primary);
+  margin: 0 0 32px;
+  letter-spacing: -0.02em;
+  word-break: keep-all;
+}
+
+.text-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.text-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0.1em;
+  width: 100%;
+  height: 0.3em;
+  background: rgba(0, 0, 0, 0.06);
+  z-index: -1;
+}
+
+.hero-subtext {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin: 0 0 48px;
+  word-break: keep-all;
+}
+
+.pc-only {
+  display: block;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 80px;
+}
+
+.btn-legodt {
+  padding: 16px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.btn-legodt-primary {
+  background: var(--text-primary);
+  color: #FFFFFF;
+}
+
+.btn-legodt-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.btn-legodt-outline {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1.5px solid var(--text-primary);
+}
+
+.btn-legodt-outline:hover {
+  background: var(--card-bg-alt);
+  transform: translateY(-2px);
+}
+
+.hero-impact-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  border: 1px solid var(--border-color);
+  padding: 32px 64px;
+  border-radius: 16px;
+  background: #FFFFFF;
+}
+
+.impact-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.impact-num {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.impact-lbl {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+}
+
+.impact-divider {
+  width: 1px;
+  height: 60px;
+  background: var(--border-color);
+}
+
+/* ==========================================================================
+   PROJECTS SECTION (LEGODT Card Grid)
+   ========================================================================== */
+.projects-section {
+  background: var(--bg-color);
+}
+
+.legodt-filter-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 10px 24px;
+  border: 1.5px solid #E0E0E0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: #FFFFFF;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-btn:hover {
+  border-color: var(--text-primary);
+  color: var(--text-primary);
+}
+
+.filter-btn.active {
+  background: var(--text-primary);
+  color: #FFFFFF;
+  border-color: var(--text-primary);
+}
+
+.count-badge {
+  background: #F0F0F0;
+  color: var(--text-primary);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+}
+
+.filter-btn.active .count-badge {
+  background: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+}
+
+.legodt-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 32px;
+}
+
+.legodt-project-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.legodt-project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+.card-thumb-wrap {
+  position: relative;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  margin: 0;
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.legodt-project-card:hover .card-img {
+  transform: scale(1.03);
+}
+
+.badge-tag {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: var(--text-primary);
+  color: #FFFFFF;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  z-index: 2;
+}
+
+/* LEGODT Light Hover Overlay (white instead of dark) */
+.legodt-hover-caption {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.92);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 2;
+}
+
+.legodt-project-card:hover .legodt-hover-caption {
+  opacity: 1;
+}
+
+.quote-text {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-align: center;
+  line-height: 1.7;
+  margin-bottom: 24px;
+  word-break: keep-all;
+}
+
+.btn-detail-view {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  background: var(--text-primary);
+  padding: 10px 24px;
+}
+
+.card-info {
+  padding: 24px;
+}
+
+.card-meta-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.category-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.project-date {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.card-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: var(--text-primary);
+}
+
+.card-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin: 0 0 20px;
+}
+
+.card-tag-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tag-item {
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: #F0F0F0;
+  color: var(--text-secondary);
+  padding: 4px 12px;
+}
+
+/* ==========================================================================
+   VALUES SECTION (LEGODT Light Cards)
+   ========================================================================== */
+.values-section {
+  background: var(--card-bg);
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.value-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 48px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.value-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+}
+
+.value-num {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #F0F0F0;
+  line-height: 1;
+  margin-bottom: 24px;
+  display: block;
+}
+
+.value-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 16px;
+  color: var(--text-primary);
+}
+
+.value-desc {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin: 0;
+  word-break: keep-all;
+}
+
+/* ==========================================================================
+   SKILLS SECTION (LEGODT Clean Boxes)
+   ========================================================================== */
+.skills-section {
+  background: var(--bg-color);
+}
+
+.skills-block-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.skill-category-box {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 32px;
+}
+
+.skill-category-header {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-primary);
+}
+
+.cat-icon {
+  font-size: 1.5rem;
+}
+
+.skill-items-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skill-pill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #FFFFFF;
+  border: 1px solid var(--border-color);
+  padding: 12px 16px;
+  border-radius: 8px;
+  transition: box-shadow 0.3s;
+}
+
+.skill-pill:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.skill-img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.skill-name {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   EXPERIENCE SECTION (LEGODT Timeline)
+   ========================================================================== */
+.experience-section {
+  background: var(--bg-color);
+}
+
+.experience-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.profile-side-card {
+  position: sticky;
+  top: 120px;
+}
+
+.profile-avatar-frame {
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 24px;
+  overflow: hidden;
+  margin-bottom: 24px;
+  background: #FAFAFA;
+}
+
+.profile-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-name {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: var(--text-primary);
+}
+
+.profile-title-tag {
+  display: inline-block;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.profile-bio-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0;
+  word-break: keep-all;
+}
+
+/* Timeline */
+.exp-block {
+  margin-bottom: 64px;
+}
+
+.exp-block-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 32px;
+  border-bottom: 2px solid var(--text-primary);
+  padding-bottom: 16px;
+  display: inline-block;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+}
+
+.exp-timeline {
+  border-left: 2px solid #E0E0E0;
+  padding-left: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.exp-timeline-item {
+  position: relative;
+}
+
+.timeline-bullet {
+  position: absolute;
+  left: -41px;
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  background: #FFFFFF;
+  border: 4px solid var(--text-primary);
+  border-radius: 50%;
+}
+
+.exp-date {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.exp-company {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: var(--text-primary);
+}
+
+.exp-position {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.exp-grid-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.exp-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.exp-list li {
+  font-size: 1.05rem;
+}
+
+.exp-list strong {
+  font-weight: 600;
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.exp-sub {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   FOOTER (ONLY DARK SECTION — LEGODT contrast)
+   ========================================================================== */
+.legodt-footer {
+  background: #1A1A1A;
+  color: #FFFFFF;
+  padding: 100px 0 40px;
+}
+
+.footer-header-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 80px;
+}
+
+.footer-big-title {
+  font-size: 4rem;
+  font-weight: 800;
+  margin: 0 0 16px;
+  line-height: 1;
+  color: #FFFFFF;
+}
+
+.footer-desc {
+  font-size: 1.1rem;
+  color: #A0A0A0;
+  margin: 0;
+  max-width: 400px;
+  line-height: 1.6;
+}
+
+.footer-contacts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50px;
+  transition: background 0.3s;
+}
+
+.footer-contact-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.footer-contact-item .lbl {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #A0A0A0;
+}
+
+.footer-contact-item .val {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #FFFFFF;
+}
+
+.footer-contact-item .arrow {
+  margin-left: auto;
+  font-size: 1.2rem;
+  color: #FFFFFF;
+}
+
+.footer-copyright-bar {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #888888;
+}
+
+.v1-link {
+  color: #FFFFFF;
+  font-weight: 500;
+  transition: opacity 0.3s;
+}
+
+.v1-link:hover {
+  opacity: 0.8;
+}
+
+/* ==========================================================================
+   MODAL POPUP (LEGODT Clean Rounded)
+   ========================================================================== */
+.modal-overlay-bg {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.modal-dialog-card {
+  background: #FFFFFF;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 1100px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.1);
+}
+
+.btn-close-modal {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  background: #F0F0F0;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.3s;
+  z-index: 10;
+  color: var(--text-primary);
+}
+
+.btn-close-modal:hover {
+  background: #E0E0E0;
+}
+
+.modal-content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.modal-left-media {
+  background: #FAFAFA;
+  border-radius: 16px 0 0 16px;
+  overflow: hidden;
+}
+
+.modal-media-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-right-details {
+  padding: 48px;
+}
+
+.modal-cat-tag {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  background: var(--text-primary);
+  padding: 6px 16px;
+  margin-bottom: 16px;
+}
+
+.modal-project-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0 0 12px;
+  color: var(--text-primary);
+}
+
+.modal-project-sub {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin: 0 0 32px;
+}
+
+.modal-desc-lines {
+  margin-bottom: 32px;
+}
+
+.modal-desc-lines p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin: 0 0 16px;
+}
+
+.modal-desc-lines :deep(.hl),
+.hl {
+  color: var(--text-primary);
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.modal-meta-table {
+  border-top: 1px solid var(--border-color);
+  padding-top: 24px;
+  margin-bottom: 40px;
+}
+
+.meta-row {
+  display: flex;
+  margin-bottom: 12px;
+}
+
+.meta-lbl {
+  width: 120px;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.meta-val {
+  flex: 1;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.btn-modal-visit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 16px;
+  background: var(--text-primary);
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: transform 0.3s;
+}
+
+.btn-modal-visit:hover {
+  transform: translateY(-2px);
+}
+
+/* Modal Transition */
+.legodt-modal-enter-active,
+.legodt-modal-leave-active {
+  transition: opacity 0.3s ease;
+}
+.legodt-modal-enter-from,
+.legodt-modal-leave-to {
+  opacity: 0;
+}
+
+/* ==========================================================================
+   SCROLL REVEAL ANIMATIONS (LEGODT Stagger Entrance)
+   ========================================================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delays */
+.reveal[data-delay='0'] { transition-delay: 0s; }
+.reveal[data-delay='0.1'] { transition-delay: 0.1s; }
+.reveal[data-delay='0.15'] { transition-delay: 0.15s; }
+.reveal[data-delay='0.2'] { transition-delay: 0.2s; }
+.reveal[data-delay='0.3'] { transition-delay: 0.3s; }
+.reveal[data-delay='0.4'] { transition-delay: 0.4s; }
+.reveal[data-delay='0.5'] { transition-delay: 0.5s; }
+.reveal[data-delay='0.6'] { transition-delay: 0.6s; }
+.reveal[data-delay='0.7'] { transition-delay: 0.7s; }
+.reveal[data-delay='0.8'] { transition-delay: 0.8s; }
+
+/* Hover Text Slide Effect */
+.link-hover-slide .overflow {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.link-hover-slide .overflow span {
+  display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.link-hover-slide:hover .overflow span {
+  transform: translateY(-100%);
+}
+
+.link-hover-slide .overflow span::after {
+  content: attr(data-hover);
+  display: block;
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .hero-headline {
+    font-size: 3.5rem;
+  }
+  .values-grid {
+    grid-template-columns: 1fr;
+  }
+  .skills-block-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .experience-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .profile-side-card {
+    position: static;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .profile-avatar-frame {
+    width: 200px;
+    flex-shrink: 0;
+    margin-bottom: 0;
+  }
+  .modal-content-grid {
+    grid-template-columns: 1fr;
+  }
+  .modal-left-media {
+    border-radius: 16px 16px 0 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-container {
+    padding: 0 24px;
+  }
+  .legodt-section {
+    padding: 80px 0;
+  }
+  .legodt-header {
+    padding: 16px 24px;
+  }
+  .gnb-nav {
+    display: none;
+  }
+  .legodt-hero {
+    padding: 100px 24px;
+  }
+  .hero-headline {
+    font-size: 2.5rem;
+  }
+  .hero-impact-stats {
+    flex-direction: column;
+    padding: 24px;
+    gap: 24px;
+  }
+  .impact-divider {
+    width: 60px;
+    height: 1px;
+  }
+  .legodt-projects-grid {
+    grid-template-columns: 1fr;
+  }
+  .skills-block-grid {
+    grid-template-columns: 1fr;
+  }
+  .exp-grid-two {
+    grid-template-columns: 1fr;
+  }
+  .footer-header-wrap {
+    flex-direction: column;
+    gap: 40px;
+  }
+  .footer-big-title {
+    font-size: 2.5rem;
+  }
+  .modal-right-details {
+    padding: 32px;
+  }
+  .main-heading {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-headline {
+    font-size: 2rem;
+  }
+  .hero-btns {
+    flex-direction: column;
+    width: 100%;
+  }
+  .btn-legodt {
+    width: 100%;
+    text-align: center;
+  }
+  .profile-side-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .profile-avatar-frame {
+    width: 100%;
+  }
+  .modal-right-details {
+    padding: 24px;
+  }
+  .top-announcement-bar {
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+  }
+  .bar-dot {
+    display: none;
+  }
+  .main-heading {
+    font-size: 2rem;
+  }
+  .footer-big-title {
+    font-size: 2rem;
+  }
+}

@@ -67,6 +67,31 @@ onMounted(() => {
   const cube = new THREE.Mesh(geometry, material);
   scene.add(cube);
 
+  // ── 반응형 크기(Scale) 및 카메라 거리 조절 ──
+  const updateResponsiveScale = () => {
+    const width = window.innerWidth;
+    const aspect = width / window.innerHeight;
+
+    if (width <= 480) {
+      cube.scale.set(0.55, 0.55, 0.55);
+    } else if (width <= 768) {
+      cube.scale.set(0.75, 0.75, 0.75);
+    } else if (width <= 1024) {
+      cube.scale.set(0.85, 0.85, 0.85);
+    } else {
+      cube.scale.set(1.0, 1.0, 1.0);
+    }
+
+    // 세로 비율(Aspect < 1)일 경우 카메라 거리 추가 조정으로 잘림 완전 방지
+    if (aspect < 1) {
+      camera.position.z = 3 / Math.max(aspect, 0.7);
+    } else {
+      camera.position.z = 3;
+    }
+  };
+
+  updateResponsiveScale();
+
   // ── 조명 ──
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
   scene.add(ambientLight);
@@ -121,6 +146,9 @@ onMounted(() => {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // 리사이즈 시 도형 스케일 및 카메라 거리 갱신
+    updateResponsiveScale();
   });
 
   // ── 핀 ──
