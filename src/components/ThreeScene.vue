@@ -110,15 +110,21 @@ onMounted(() => {
   scene.add(blueLight);
 
   // ── 배경 그라데이션 ──
-  gsap.to(canvasRef.value, {
-    backgroundImage: 'linear-gradient(to bottom, #ededed 0%, #ffffff 100%)',
-    scrollTrigger: {
-      trigger: 'body',
-      start: 'top top',
-      end: () => `+=${pinContainer.value.offsetHeight}`,
-      scrub: true,
+  gsap.fromTo(
+    canvasRef.value,
+    {
+      backgroundImage: 'radial-gradient(circle at center, #1a1c2c 0%, #050505 100%)',
     },
-  });
+    {
+      backgroundImage: 'radial-gradient(circle at center, #ffffff 0%, #ededed 100%)',
+      scrollTrigger: {
+        trigger: 'body',
+        start: 'top top',
+        end: () => `+=${pinContainer.value.offsetHeight}`,
+        scrub: true,
+      },
+    }
+  );
 
   // ── 회전 애니메이션 ──
   gsap.to(cube.rotation, {
