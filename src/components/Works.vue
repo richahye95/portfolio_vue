@@ -918,50 +918,57 @@ const closeModal = () => {
 /* ── 모바일 (~ 767px) ── */
 @media (max-width: 767px) {
 
-  /* 백드롭 패딩 제거 → 모달이 화면을 꽉 채움 */
+  /* 백드롭 여백 확보 → 중앙 정렬 플로팅 카드 */
   .modal-backdrop {
-    padding: 0;
-    align-items: flex-end;   /* 바텀시트 느낌 */
+    padding: 24px 18px;
+    align-items: center;
   }
 
   /* 모달 본체 */
   .modal {
     width: 100%;
-    max-width: 100%;
-    height: 95dvh;           /* dvh: 모바일 주소창 고려 */
-    max-height: 95dvh;
-    border-radius: 20px 20px 0 0;
-    border-bottom: none;
+    max-width: 480px;
+    height: auto;
+    max-height: 82dvh;       /* dvh: 모바일 주소창 고려, 상하 여백 유지 */
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
   }
 
-  /* 좌우 → 위아래 레이아웃 전환 */
+  /* 좌우 → 위아래 레이아웃 전환 (단일 스크롤) */
   .modal-inner {
     flex-direction: column;
-    overflow-y: auto;        /* 전체 스크롤을 inner가 담당 */
+    height: auto;
+    max-height: 82dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
-  /* 좌측(이미지) — 고정 높이로 상단에 */
+  /* 좌측(이미지) — 모달 높이의 약 절반 차지, 세로 긴 이미지 스크롤 허용 */
   .modal-left {
-    width: 100%;         /* 비율 고정 */
-    max-height: 280px;
-    overflow: hidden;
+    width: 100%;
+    height: 41dvh;
+    max-height: 41dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     flex-shrink: 0;
-    overflow-y: hidden;      /* 모바일에선 이미지 스크롤 없음 */
   }
 
   .modal-img {
-    min-height: unset;
-    height: 100%;
+    min-height: 100%;
+    width: 100%;
+    height: auto;
     object-fit: cover;
+    object-position: top;
   }
 
-  /* 우측(텍스트) — 스크롤 영역 */
+  /* 우측(텍스트) — inner와 함께 자연스럽게 스크롤 */
   .modal-right {
-    flex: 1;
-    padding: 24px 20px 32px;
-    overflow-y: auto;
+    flex: none;
+    padding: 22px 20px 26px;
+    overflow-y: visible;
     justify-content: flex-start;
-    gap: 20px;
+    gap: 18px;
   }
 
   .modal-right-top {
@@ -1023,25 +1030,26 @@ const closeModal = () => {
     justify-content: center;
   }
 
-  /* 닫기 버튼 위치 조정 */
+  /* 닫기 버튼 위치 및 시인성 조정 */
   .modal-close {
-    top: 14px;
-    right: 14px;
+    top: 12px;
+    right: 12px;
     width: 30px;
     height: 30px;
     font-size: 0.7rem;
-  }
-
-  /* 모바일에선 좌우 스크롤 연동 로직 불필요 — inner 단일 스크롤 */
-  .modal-left {
-    overflow-y: hidden;
+    background: rgba(20, 20, 20, 0.8);
+    color: #fff;
   }
 }
 
 /* ── 아주 작은 모바일 (~ 374px) ── */
 @media (max-width: 374px) {
+  .modal-backdrop {
+    padding: 18px 14px;
+  }
+
   .modal-title {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
   }
 
   .modal-meta {
@@ -1049,24 +1057,25 @@ const closeModal = () => {
   }
 
   .modal-left {
-    max-height: 220px;
+    height: 38dvh;
+    max-height: 38dvh;
   }
 }
 
-/* ── 모달 트랜지션 — 모바일 바텀시트 방향 전환 ── */
+/* ── 모달 트랜지션 (모바일) ── */
 @media (max-width: 767px) {
   .modal-enter-from .modal,
   .modal-leave-to .modal {
-    transform: translateY(60px);   /* 위아래로 슬라이드 */
+    transform: scale(0.95) translateY(16px);
     opacity: 0;
   }
 
   .modal-enter-active .modal {
-    transition: opacity 0.28s ease, transform 0.32s cubic-bezier(0.34, 1.2, 0.64, 1);
+    transition: opacity 0.25s ease, transform 0.28s cubic-bezier(0.34, 1.2, 0.64, 1);
   }
 
   .modal-leave-active .modal {
-    transition: opacity 0.22s ease, transform 0.22s ease;
+    transition: opacity 0.2s ease, transform 0.2s ease;
   }
 }
 </style>

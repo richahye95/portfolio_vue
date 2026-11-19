@@ -4,6 +4,7 @@
     <Works />
     <Skills />
     <Intro />
+    <Outro />
   </div>
 </template>
 
@@ -12,4 +13,5 @@ import Works from '../../components/Works.vue';
 import ThreeScene from '../../components/ThreeScene.vue';
 import Skills from '../../components/Skills.vue';
 import Intro from '../../components/Intro.vue';
+import Outro from '../../components/Outro.vue';
 </script>
