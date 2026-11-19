@@ -10,7 +10,7 @@
         <h1>Front-end developer</h1>
       </section>
       <section class="section">
-        <h1>portfolio <br><span>차혜리</span></h1>
+        <h1>portfolio <br><span v-if="profile.heroName">{{ profile.heroName }}</span><span style="font-weight: 600; line-height: 1.5;">2026</span></h1>
       </section>
 
       <section class="space"></section>
@@ -23,6 +23,7 @@ import { ref, onMounted } from 'vue';
 import * as THREE from 'three';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { profile } from '@profile';
 
 gsap.registerPlugin(ScrollTrigger);
 

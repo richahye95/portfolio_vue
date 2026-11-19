@@ -41,19 +41,19 @@
   </section>
 
   <!-- Contact -->
-  <section class="contact-section">
+  <section v-if="profile.contact" class="contact-section">
     <div class="contact-inner">
       <span class="contact-label">Contact</span>
       <div class="contact-links">
-        <a href="mailto:himy1114@naver.com" class="contact-item">
+        <a :href="`mailto:${profile.contact.email}`" class="contact-item">
           <span class="contact-type">Email</span>
-          <span class="contact-value">himy1114@naver.com</span>
+          <span class="contact-value">{{ profile.contact.email }}</span>
           <span class="contact-arrow">↗</span>
         </a>
         <div class="contact-divider"></div>
-        <a href="tel:+821092304170" class="contact-item">
+        <a :href="profile.contact.phoneHref" class="contact-item">
           <span class="contact-type">Phone</span>
-          <span class="contact-value">010-9230-4170</span>
+          <span class="contact-value">{{ profile.contact.phone }}</span>
           <span class="contact-arrow">↗</span>
         </a>
       </div>
@@ -62,6 +62,7 @@
 </template>
 
 <script setup>
+import { profile } from '@profile';
 </script>
 
 <style scoped>

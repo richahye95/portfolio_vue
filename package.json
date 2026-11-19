@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:blind": "vite --mode blind",
     "build": "vue-tsc -b && vite build",
+    "build:blind": "vue-tsc -b && vite build --mode blind",
     "preview": "vite preview"
   },
   "dependencies": {

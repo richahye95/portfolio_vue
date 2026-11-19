@@ -165,6 +165,7 @@
 import { ref, onMounted, watch } from 'vue';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { profile } from '@profile';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -377,26 +378,7 @@ const projects = [
       
     ],
   },
-  {
-    size: 'wide',
-    title: '개인 포트폴리오 사이트',
-    subtitle: 'Self-Branding · UI/UX Design · Publishing',
-    image: '/img/works/pf_thum.png',
-    modalImage: '/img/works/pf_wrap.png',
-    description: [
-      '기획, 디자인, 개발 전 과정을 단독 수행한 셀프 브랜딩 프로젝트입니다. <span class="hl">노션(Notion)의 직관적인 인터페이스</span>를 모티브로 삼아 프로젝트를 한눈에 파악할 수 있는 미니멀 UI를 설계했습니다.',
-
-      '책넘기기 모션, 각 아이템 등장 효과 등<span class="hl">가벼운 인터랙션을 곳곳에 배치</span>하여 퍼블리셔로서의 섬세한 구현 능력을 시각적으로 표현하였습니다.',
-    ],
-    tags: ['HTML', 'CSS', 'JavaScript', 'Notion'],
-
-    meta: [
-      { label: 'Project',  value: 'Self-Portfolio Design & Dev' },
-      { label: 'Concept',  value: 'Notion-Inspired Minimalist' },
-      { label: 'Role',     value: 'Planning, Design, Publishing (100%)' },
-      { label: 'Focus',    value: 'User Experience & Readability' },
-    ],
-  },
+  ...(profile.personalPortfolioProject ? [profile.personalPortfolioProject] : []),
 ];
 
 // ── 레이아웃 순서 정의 ──
@@ -405,20 +387,22 @@ const projects = [
 // type: 'mixed-wide-top'   → wide(위) + small 2개(아래)
 //
 // 원하는 순서: tall → mixed → tall → mixed → mixed(wide 1행, small 2행) → tall
-const layout = [
-    // mixed (small 위, wide 아래)
-    { type: 'single', index: 0 },                          // tall
-     { type: 'mixed-wide-top',  wide: 1, smalls: [2, 3] },  // mixed (wide 위, small 아래)  ← 예시, 인덱스 조정하세요
-   
-   { type: 'single', index: 4 },                          // tall
-  { type: 'double-square', squares: [5, 6]},  // 정사각형 2개 세로로
-  { type: 'mixed-small-top', smalls: [7, 8], wide: 9 },
-  
-  
-   
-  
-  
-];
+const layout = profile.personalPortfolioProject
+  ? [
+      // mixed (small 위, wide 아래)
+      { type: 'single', index: 0 },                          // tall
+      { type: 'mixed-wide-top',  wide: 1, smalls: [2, 3] },  // mixed (wide 위, small 아래)
+      { type: 'single', index: 4 },                          // tall
+      { type: 'double-square', squares: [5, 6] },            // 정사각형 2개 세로로
+      { type: 'mixed-small-top', smalls: [7, 8], wide: 9 },
+    ]
+  : [
+      { type: 'single', index: 0 },                          // tall
+      { type: 'mixed-wide-top',  wide: 1, smalls: [2, 3] },  // mixed (wide 위, small 아래)
+      { type: 'single', index: 4 },                          // tall
+      { type: 'double-square', squares: [5, 6] },            // 정사각형 2개 세로로
+      { type: 'double-square', squares: [7, 8] },            // 개인 포트폴리오 제외, 정사각형 2개 세로로
+    ];
 
 onMounted(() => {
   const pinWrap = pinWrapRef.value;
